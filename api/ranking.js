@@ -1,0 +1,2 @@
+import {allow,db} from './_lib.js';
+export default async function handler(req,res){if(!allow(req,res,['GET']))return;try{const rows=await db('results?select=id,alias,score,duration_seconds,created_at&moderated=eq.false&order=score.desc,duration_seconds.asc,created_at.asc&limit=10');res.setHeader('Cache-Control','public, s-maxage=10, stale-while-revalidate=30');res.json({mode:'online',rows})}catch(e){console.error(e);res.status(503).json({error:'Ranking temporalmente no disponible'})}}
