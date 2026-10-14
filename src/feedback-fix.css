@@ -8,5 +8,11 @@
   place-items: unset;
   font-size: inherit;
   font-weight: inherit;
+  background: transparent !important;
+  color: #effff8 !important;
+  box-shadow: none !important;
 }
+.feedback .feedback-content p { color: #d8eee4 !important; }
+.feedback .feedback-content strong { color: #ffffff !important; }
+.feedback .feedback-content .correct-answer { background: rgba(255,255,255,.08) !important; color: #ffffff !important; }
 
