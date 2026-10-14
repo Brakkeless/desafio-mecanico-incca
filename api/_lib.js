@@ -13,8 +13,10 @@ export function sign(payload){const body=Buffer.from(JSON.stringify(payload)).to
 export function verify(token){const [body,mac]=String(token||'').split('.');if(!body||!mac)return null;const expected=crypto.createHmac('sha256',secret()).update(body).digest('base64url');if(mac.length!==expected.length||!crypto.timingSafeEqual(Buffer.from(mac),Buffer.from(expected)))return null;try{return JSON.parse(Buffer.from(body,'base64url').toString())}catch{return null}}
 export async function db(path,options={}){
   const url=process.env.SUPABASE_URL,key=process.env.SUPABASE_SERVICE_ROLE_KEY;if(!url||!key)throw new Error('Supabase no configurado');
-  const r=await fetch(`${url}/rest/v1/${path}`,{...options,headers:{apikey:key,Authorization:`Bearer ${key}`,'Content-Type':'application/json',...(options.headers||{})}});
+  const auth=key.startsWith('sb_secret_')?{}:{Authorization:`Bearer ${key}`};
+  const r=await fetch(`${url}/rest/v1/${path}`,{...options,headers:{apikey:key,...auth,'Content-Type':'application/json',...(options.headers||{})}});
   if(!r.ok)throw new Error(`Error de base de datos (${r.status})`);const text=await r.text();return text?JSON.parse(text):null;
 }
 export function admin(req){const got=String(req.headers.authorization||'').replace(/^Bearer\s+/i,'');const expected=process.env.ADMIN_TOKEN||'';if(!got||!expected||got.length!==expected.length)return false;return crypto.timingSafeEqual(Buffer.from(got),Buffer.from(expected))}
 export function allow(req,res,methods=['GET']){res.setHeader('Cache-Control','no-store');if(!methods.includes(req.method)){res.status(405).json({error:'Método no permitido'});return false}return true}
+
