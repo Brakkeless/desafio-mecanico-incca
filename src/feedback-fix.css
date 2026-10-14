@@ -1,0 +1,12 @@
+.feedback > .feedback-content {
+  flex: 1 1 auto;
+  width: auto;
+  height: auto;
+  min-width: 0;
+  border-radius: 0;
+  display: block;
+  place-items: unset;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
