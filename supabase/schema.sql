@@ -38,6 +38,15 @@ alter table public.level_answers enable row level security;
 -- Las funciones Vercel usan exclusivamente la service role, que omite RLS.
 revoke all on public.game_runs, public.results, public.level_answers from anon, authenticated;
 
+-- El backend usa exclusivamente service_role / una Secret API Key.
+-- RLS continúa bloqueando por completo al navegador y a usuarios anónimos.
+grant usage on schema public to service_role;
+grant select, insert, update, delete on all tables in schema public to service_role;
+grant usage, select on all sequences in schema public to service_role;
+alter default privileges in schema public grant select, insert, update, delete on tables to service_role;
+alter default privileges in schema public grant usage, select on sequences to service_role;
+
 -- Limpieza opcional de sesiones abandonadas (ejecutar mediante tarea programada):
 -- delete from public.game_runs g where g.started_at < now() - interval '24 hours'
 -- and not exists (select 1 from public.results r where r.run_id = g.id);
+
