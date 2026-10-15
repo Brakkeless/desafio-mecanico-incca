@@ -1,237 +1,26 @@
-export type Difficulty = "Fácil" | "Intermedia" | "Avanzada" | "Final";
-export type LevelKind =
-  | "tools"
-  | "gears"
-  | "lever"
-  | "forces"
-  | "pulleys"
-  | "torque"
-  | "hydraulic"
-  | "efficiency"
-  | "transmission"
-  | "repair";
+export type Difficulty="Fácil"|"Intermedia"|"Avanzada"|"Final";
+export type LevelKind="tools"|"gears"|"lever"|"forces"|"pulleys"|"torque"|"hydraulic"|"efficiency"|"transmission"|"repair";
+export interface Level {id:number;title:string;area:string;difficulty:Difficulty;kind:LevelKind;prompt:string;instruction:string;options?:string[];correct:string;explanation:string;application:string;}
+export interface AnswerRecord {levelId:number;answer:string;elapsedSeconds:number;}
+export interface RankRow {id?:string;alias:string;score:number;duration_seconds:number;created_at?:string;rank?:number;}
 
-export interface Level {
-  id: number;
-  title: string;
-  difficulty: Difficulty;
-  kind: LevelKind;
-  prompt: string;
-  instruction: string;
-  options?: string[];
-  correct: string;
-  explanation: string;
-  application: string;
-}
-
-export interface AnswerRecord {
-  levelId: number;
-  answer: string;
-  elapsedSeconds: number;
-}
-export interface RankRow {
-  id?: string;
-  alias: string;
-  score: number;
-  duration_seconds: number;
-  created_at?: string;
-  rank?: number;
-}
-
-export const levels: Level[] = [
-  {
-    id: 1,
-    title: "Reconoce las herramientas",
-    difficulty: "Fácil",
-    kind: "tools",
-    prompt: "Debes ajustar una tuerca hexagonal sin dañarla.",
-    instruction: "Selecciona la herramienta correcta.",
-    options: ["Llave combinada", "Martillo", "Segueta", "Lima"],
-    correct: "Llave combinada",
-    explanation:
-      "La llave abraza bien la tuerca y permite hacerla girar sin golpearla ni dañar sus bordes.",
-    application:
-      "En un taller se usa una llave de la medida correcta para apretar o aflojar la tuerca con seguridad.",
-  },
-  {
-    id: 2,
-    title: "Engranajes en movimiento",
-    difficulty: "Fácil",
-    kind: "gears",
-    prompt: "El engranaje conductor A gira en sentido horario.",
-    instruction:
-      "Indica el sentido de giro del engranaje B, que está engranado directamente con A.",
-    options: ["Horario", "Antihorario", "Se detiene"],
-    correct: "Antihorario",
-    explanation:
-      "Cuando dos engranajes se tocan, uno empuja los dientes del otro. Por eso giran en sentidos contrarios.",
-    application:
-      "Así funcionan muchos relojes, cajas de cambios y máquinas.",
-  },
-  {
-    id: 3,
-    title: "El poder de las palancas",
-    difficulty: "Fácil",
-    kind: "lever",
-    prompt: "Necesitas levantar una carga con el menor esfuerzo posible.",
-    instruction:
-      "Mueve el punto de apoyo y déjalo en la posición más conveniente.",
-    correct: "20",
-    explanation:
-      "La palanca necesita menos fuerza cuando el apoyo está cerca de la carga y tú empujas desde lejos.",
-    application:
-      "Una barra larga puede ayudarte a levantar una piedra pesada con menos esfuerzo.",
-  },
-  {
-    id: 4,
-    title: "Fuerzas en movimiento",
-    difficulty: "Intermedia",
-    kind: "forces",
-    prompt:
-      "El vehículo se desplaza a velocidad constante sobre una vía horizontal.",
-    instruction: "Selecciona el diagrama que representa la fuerza neta.",
-    options: [
-      "Fuerzas equilibradas",
-      "Fuerza mayor hacia adelante",
-      "Solo actúa el peso",
-    ],
-    correct: "Fuerzas equilibradas",
-    explanation:
-      "Si el vehículo mantiene la misma velocidad, no está acelerando. Eso significa que las fuerzas se compensan.",
-    application:
-      "El motor vence el roce y el aire mientras el piso sostiene el peso del vehículo.",
-  },
-  {
-    id: 5,
-    title: "Desafío de poleas",
-    difficulty: "Intermedia",
-    kind: "pulleys",
-    prompt: "La carga pesa 120 N. Los sistemas se consideran ideales.",
-    instruction: "Elige el montaje que necesita menos fuerza.",
-    options: [
-      "Polea fija: 120 N",
-      "1 polea móvil: 60 N",
-      "Aparejo de 4 tramos: 30 N",
-    ],
-    correct: "Aparejo de 4 tramos: 30 N",
-    explanation:
-      "Cuatro tramos de cuerda comparten el peso: 120 N ÷ 4 = 30 N.",
-    application:
-      "Las grúas usan varias poleas para levantar cargas pesadas con menos fuerza.",
-  },
-  {
-    id: 6,
-    title: "Controla la transmisión",
-    difficulty: "Intermedia",
-    kind: "torque",
-    prompt:
-      "El engranaje del motor tiene 12 dientes. Buscas triplicar el torque ideal.",
-    instruction: "Ajusta el número de dientes del engranaje de salida.",
-    correct: "36",
-    explanation:
-      "Un engranaje de salida tres veces más grande entrega cerca de tres veces más fuerza de giro, aunque gira más lento.",
-    application:
-      "Los reductores permiten que un motor rápido mueva una banda o mezcladora con más fuerza.",
-  },
-  {
-    id: 7,
-    title: "Ingeniería hidráulica",
-    difficulty: "Intermedia",
-    kind: "hydraulic",
-    prompt:
-      "Aplicas 40 N sobre un pistón de 2 cm². El pistón de salida tiene 10 cm².",
-    instruction:
-      "Ajusta la fuerza de salida que predice el principio de Pascal.",
-    correct: "200",
-    explanation:
-      "La presión pasa por todo el líquido. Como el pistón grande tiene cinco veces más área, entrega 40 × 5 = 200 N.",
-    application:
-      "Este principio permite que un gato hidráulico levante un automóvil.",
-  },
-  {
-    id: 8,
-    title: "Eficiencia energética",
-    difficulty: "Avanzada",
-    kind: "efficiency",
-    prompt:
-      "Una máquina recibe 500 W. Ajusta su potencia útil para alcanzar exactamente 80 % de eficiencia.",
-    instruction: "Mueve el control y observa cómo cambia la eficiencia.",
-    correct: "400",
-    explanation:
-      "De los 500 W que entran, 400 W se aprovechan: 400 ÷ 500 = 0,8, es decir, 80 %.",
-    application:
-      "La energía restante se pierde principalmente como calor, ruido o vibración.",
-  },
-  {
-    id: 9,
-    title: "Diseña una transmisión",
-    difficulty: "Avanzada",
-    kind: "transmission",
-    prompt: "Motor: 1200 rpm. Objetivo: 400 rpm.",
-    instruction:
-      "Toca dos engranajes en orden: primero el conductor y luego el conducido.",
-    correct: "12→36",
-    explanation:
-      "El engranaje de 12 dientes mueve uno de 36: la salida gira a la tercera parte, 400 rpm.",
-    application:
-      "Se usa cuando una máquina necesita menos velocidad y más fuerza.",
-  },
-  {
-    id: 10,
-    title: "¡Salva la máquina!",
-    difficulty: "Final",
-    kind: "repair",
-    prompt:
-      "El motor gira, pero la banda patina, chirría y el transportador no mueve la carga.",
-    instruction: "Aplica el diagnóstico y la acción segura correctos.",
-    options: [
-      "Aumentar la velocidad",
-      "Tocar la banda para guiarla",
-      "Desconectar y bloquear; revisar tensión, desgaste y alineación",
-    ],
-    correct: "Desconectar y bloquear; revisar tensión, desgaste y alineación",
-    explanation:
-      "Una banda que patina puede estar floja, gastada o desalineada. Primero hay que detener y bloquear la máquina.",
-    application:
-      "En un taller nadie debe tocar una transmisión en movimiento; primero se verifica que no tenga energía.",
-  },
+export const levels:Level[]=[
+  {id:1,title:"Comprende el problema",area:"Diseño mecánico",difficulty:"Fácil",kind:"tools",prompt:"La planta necesita mover cajas de 20 kg de forma continua.",instruction:"¿Qué debe hacerse antes de diseñar la máquina?",options:["Comprar el motor más potente","Definir carga, velocidad, recorrido, ambiente y condiciones de seguridad","Pedirle a una IA que diseñe todo el sistema"],correct:"Definir carga, velocidad, recorrido, ambiente y condiciones de seguridad",explanation:"El diseño comienza convirtiendo una necesidad en requisitos que puedan calcularse, comprobarse y medirse.",application:"La IA puede ordenar información, pero el ingeniero define qué debe hacer la máquina y bajo qué límites."},
+  {id:2,title:"Elige el mecanismo",area:"Ingeniería Mecánica",difficulty:"Fácil",kind:"gears",prompt:"Las cajas deben desplazarse horizontalmente y a velocidad constante.",instruction:"¿Qué solución se adapta mejor al movimiento requerido?",options:["Una banda transportadora","Una polea para elevarlas verticalmente","Un resorte sin sistema de guiado"],correct:"Una banda transportadora",explanation:"La banda genera un recorrido horizontal continuo y controlado para transportar varias cajas.",application:"La IA puede comparar alternativas; el ingeniero selecciona el mecanismo según carga, movimiento, espacio y seguridad."},
+  {id:3,title:"Calcula antes de construir",area:"Diseño y resistencia",difficulty:"Fácil",kind:"forces",prompt:"La banda llevará varias cajas al mismo tiempo y trabajará durante horas.",instruction:"¿Por qué debe calcularse la carga total?",options:["Para seleccionar correctamente estructura, ejes y motor","Solo para conocer el peso de una caja","Para escoger el color de la máquina"],correct:"Para seleccionar correctamente estructura, ejes y motor",explanation:"La carga determina las fuerzas que deben soportar las piezas y la potencia necesaria para mover el sistema.",application:"Los cálculos evitan que un eje se doble, un motor se sobrecargue o la estructura falle."},
+  {id:4,title:"Ajusta velocidad y fuerza",area:"Transmisiones mecánicas",difficulty:"Intermedia",kind:"gears",prompt:"El motor gira demasiado rápido y la banda necesita más fuerza para arrancar.",instruction:"¿Qué solución mecánica es adecuada?",options:["Usar una reducción con engranajes","Aumentar aún más la velocidad","Conectar todo directamente sin comprobar el torque"],correct:"Usar una reducción con engranajes",explanation:"Una reducción disminuye la velocidad de salida y aumenta el torque disponible para mover la carga.",application:"La IA puede proponer relaciones de transmisión, pero el ingeniero verifica torque, velocidad y resistencia."},
+  {id:5,title:"Selecciona el material",area:"Materiales y manufactura",difficulty:"Intermedia",kind:"tools",prompt:"Un eje soportará cargas repetidas durante muchas horas en un ambiente húmedo.",instruction:"¿Qué criterios debe considerar el ingeniero?",options:["Resistencia, fatiga, corrosión, fabricación y costo","Únicamente el precio más bajo","Solo la apariencia del material"],correct:"Resistencia, fatiga, corrosión, fabricación y costo",explanation:"Una pieza puede resistir una carga una vez y aun así fallar después de miles de ciclos o por corrosión.",application:"La IA compara historiales y materiales; el profesional verifica esfuerzos, vida útil y condiciones reales."},
+  {id:6,title:"Reduce las pérdidas",area:"Eficiencia mecánica",difficulty:"Intermedia",kind:"pulleys",prompt:"El sistema consume más energía y los rodamientos se están calentando.",instruction:"¿Cuál debe ser la primera revisión?",options:["Lubricación, alineación y fricción","Cambiar inmediatamente por un motor más grande","Aumentar la velocidad para enfriarlo"],correct:"Lubricación, alineación y fricción",explanation:"La fricción excesiva convierte energía útil en calor y acelera el desgaste de los componentes.",application:"Los datos de consumo ayudan a detectar el problema; el ingeniero inspecciona y corrige su causa física."},
+  {id:7,title:"Dale sentidos a la máquina",area:"Sensores + Ingeniería Mecánica",difficulty:"Intermedia",kind:"forces",prompt:"Quieres que una IA vigile el estado de la máquina mientras trabaja.",instruction:"¿Qué conjunto de datos describe mejor su comportamiento mecánico?",options:["Vibración, temperatura, velocidad y consumo eléctrico","El color de las cajas y las paredes","Solo la hora de llegada de los operarios"],correct:"Vibración, temperatura, velocidad y consumo eléctrico",explanation:"Esas señales cambian cuando aparecen desgaste, desalineación, fricción o sobrecarga.",application:"Los sensores convierten el comportamiento físico en datos. Sin mediciones confiables, la IA no puede diagnosticar bien."},
+  {id:8,title:"Interpreta la alerta",area:"Diagnóstico mecánico + IA",difficulty:"Avanzada",kind:"repair",prompt:"La IA detecta que la vibración de un rodamiento aumentó de forma inusual.",instruction:"¿Qué debe hacer el equipo?",options:["Inspeccionar según el riesgo y verificar la medición","Reemplazar automáticamente toda la máquina","Ignorar la alerta mientras el equipo todavía se mueva"],correct:"Inspeccionar según el riesgo y verificar la medición",explanation:"Una anomalía es una señal para investigar; todavía hay que confirmar si existe desgaste, holgura o desalineación.",application:"La IA encuentra el patrón y el profesional decide si se detiene, inspecciona o continúa de manera controlada."},
+  {id:9,title:"Predice el mantenimiento",area:"Confiabilidad + IA",difficulty:"Avanzada",kind:"repair",prompt:"La vibración y la temperatura aumentan un poco cada semana.",instruction:"¿Qué ventaja puede ofrecer un modelo de IA?",options:["Estimar una posible falla y ayudar a programar el mantenimiento","Garantizar que la máquina nunca volverá a fallar","Reparar físicamente el rodamiento"],correct:"Estimar una posible falla y ayudar a programar el mantenimiento",explanation:"El modelo reconoce una tendencia y calcula riesgo, pero su resultado es una probabilidad, no una certeza.",application:"Mecánica interpreta el desgaste y programa una intervención antes de una parada inesperada."},
+  {id:10,title:"Activa la máquina inteligente",area:"Decisión profesional",difficulty:"Final",kind:"repair",prompt:"La IA recomienda aumentar 30 % la velocidad, pero la estructura fue diseñada para una carga dinámica menor.",instruction:"¿Cuál es la decisión profesional correcta?",options:["Aplicar el cambio porque aumenta la producción","Validar esfuerzos, vibraciones, potencia y seguridad antes de modificar","Desactivar los sensores para evitar nuevas alertas"],correct:"Validar esfuerzos, vibraciones, potencia y seguridad antes de modificar",explanation:"Más velocidad puede aumentar fuerzas, vibración, calentamiento y riesgo de falla.",application:"La IA recomienda; la física, la seguridad y el ingeniero determinan si el cambio puede implementarse."},
 ];
 
-export const BASE_POINTS = [100, 100, 100, 140, 140, 140, 140, 190, 190, 250];
-
-export function normalizeAnswer(value: string | number) {
-  return String(value).trim();
-}
-export function isCorrect(levelId: number, answer: string | number) {
-  const level = levels[levelId - 1];
-  return Boolean(level) && normalizeAnswer(answer) === level.correct;
-}
-export function scoreAnswer(
-  levelId: number,
-  answer: string | number,
-  elapsedSeconds: number,
-) {
-  if (!isCorrect(levelId, answer)) return 0;
-  const base = BASE_POINTS[levelId - 1] ?? 0;
-  const safeTime = Math.max(0, Math.min(120, Math.floor(elapsedSeconds)));
-  const bonus = Math.max(0, 30 - Math.floor(safeTime / 3));
-  return base + bonus;
-}
-export function totalScore(records: AnswerRecord[]) {
-  const unique = new Map(records.map((r) => [r.levelId, r]));
-  if (unique.size !== 10) return 0;
-  return levels.reduce(
-    (sum, l) =>
-      sum +
-      scoreAnswer(
-        l.id,
-        unique.get(l.id)?.answer ?? "",
-        unique.get(l.id)?.elapsedSeconds ?? 120,
-      ),
-    0,
-  );
-}
-export function cleanAlias(input: string) {
-  return input.replace(/[<>]/g, "").replace(/\s+/g, " ").trim().slice(0, 20);
-}
+export const BASE_POINTS=[100,100,100,140,140,140,140,190,190,250];
+export function normalizeAnswer(value:string|number){return String(value).trim();}
+export function isCorrect(levelId:number,answer:string|number){const level=levels[levelId-1];return Boolean(level)&&normalizeAnswer(answer)===level.correct;}
+export function scoreAnswer(levelId:number,answer:string|number,elapsedSeconds:number){if(!isCorrect(levelId,answer))return 0;const base=BASE_POINTS[levelId-1]??0;const safeTime=Math.max(0,Math.min(120,Math.floor(elapsedSeconds)));return base+Math.max(0,30-Math.floor(safeTime/3));}
+export function totalScore(records:AnswerRecord[]){const unique=new Map(records.map(r=>[r.levelId,r]));if(unique.size!==10)return 0;return levels.reduce((sum,l)=>sum+scoreAnswer(l.id,unique.get(l.id)?.answer??"",unique.get(l.id)?.elapsedSeconds??120),0);}
+export function cleanAlias(input:string){return input.replace(/[<>]/g,"").replace(/\s+/g," ").trim().slice(0,20);}
 
