@@ -281,11 +281,11 @@ function Home({
       <div className="hero-copy">
         <p className="eyebrow">CORFERIAS 2026 · EXPERIENCIA INTERACTIVA</p>
         <h1>
-          ¿Tienes mente de <em>ingeniero?</em>
+          Diseña la máquina <em>inteligente del futuro.</em>
         </h1>
         <p className="lead">
-          Pon a prueba tu lógica con mecanismos, fuerzas y energía. Diez
-          misiones. Una máquina por salvar.
+          Construye un transportador inteligente desde la necesidad inicial
+          hasta el mantenimiento predictivo. Combina mecánica, sensores e IA.
         </p>
         <div className="quick-stats">
           <span>
@@ -343,9 +343,9 @@ function Home({
           <span>10</span>
           <small>NIVELES</small>
         </div>
-        <div className="tech-label l1">TORQUE</div>
-        <div className="tech-label l2">ENERGÍA</div>
-        <div className="tech-label l3">INGENIO</div>
+        <div className="tech-label l1">MECÁNICA + DATOS</div>
+        <div className="tech-label l2">SENSORES + IA</div>
+        <div className="tech-label l3">SEGURIDAD</div>
       </div>
     </section>
   );
@@ -408,7 +408,7 @@ function Game({
     <section className="game">
       <div className="game-hud">
         <div>
-          <span>NIVEL {idx + 1} DE 10</span>
+          <span>NIVEL {idx + 1} DE 10 · {level.area.toUpperCase()}</span>
           <b>{level.title}</b>
         </div>
         <div className="score">★ {score.toLocaleString("es-CO")}</div>
@@ -493,12 +493,12 @@ function Finish({
       <div className="final-gear">⚙</div>
       <p className="eyebrow">MISIÓN COMPLETADA</p>
       <h1>
-        ¡Tu ingenio puede <em>transformar el mundo!</em>
+        Construiste una máquina <em>inteligente y segura.</em>
       </h1>
       <p className="lead">
-        En Ingeniería Mecánica de la Universidad INCCA de Colombia puedes
-        desarrollar habilidades para diseñar, analizar y mejorar máquinas,
-        sistemas mecánicos y procesos tecnológicos.
+        La Ingeniería Mecánica convirtió una necesidad en mecanismos reales;
+        los sensores mostraron su comportamiento y la IA ayudó a anticipar
+        fallas. La decisión final siempre permaneció en el profesional.
       </p>
       <div className="result-grid">
         <article>
